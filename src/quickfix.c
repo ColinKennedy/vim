@@ -3146,7 +3146,7 @@ qf_goto_win_with_qfl_file(int qf_fnum)
 	    // Didn't find it, go to the window before the quickfix
 	    // window, unless 'switchbuf' contains 'uselast': in this case we
 	    // try to jump to the previously used window first.
-	    if ((swb_flags & SWB_USELAST) && win_valid(prevwin))
+	    if ((swb_flags & SWB_USELAST) && !prevwin->w_p_stb && win_valid(prevwin)) {
 		win = prevwin;
 	    else if (altwin != NULL)
 		win = altwin;
@@ -3158,7 +3158,7 @@ qf_goto_win_with_qfl_file(int qf_fnum)
 	}
 
 	// Remember a usable window.
-	if (altwin == NULL && !win->w_p_pvw && bt_normal(win->w_buffer))
+	if (altwin == NULL && !win->w_p_pvw && !win->w_p_stb && bt_normal(win->w_buffer))
 	    altwin = win;
     }
 
@@ -4982,6 +4982,12 @@ qf_jump_first(qf_info_T *qi, int_u save_qfid, int forceit)
     if (qf_restore_list(qi, save_qfid) == FAIL)
 	return;
 
+
+    if (!forceit && curwin->w_p_stb) {
+	return;
+    }
+
+
     // Autocommands might have cleared the list, check for that.
     if (!qf_list_empty(qf_get_curlist(qi)))
 	qf_jump(qi, 0, 0, forceit);
@@ -5898,7 +5904,7 @@ ex_cfile(exarg_T *eap)
 
     // This function is used by the :cfile, :cgetfile and :caddfile
     // commands.
-    // :cfile always creates a new quickfix list and jumps to the
+    // :cfile always creates a new quickfix list and may jump to the
     // first error.
     // :cgetfile creates a new quickfix list but doesn't jump to the
     // first error.
@@ -6549,10 +6555,10 @@ ex_vimgrep(exarg_T *eap)
 	goto theend;
     }
 
-    // Jump to first match.
+    // Jump to first match if the current window is not 'stickybuf'
     if (!qf_list_empty(qf_get_curlist(qi)))
     {
-	if ((args.flags & VGR_NOJUMP) == 0)
+	if ((eap->forceit || !curwin->w_p_stb) && (args.flags & VGR_NOJUMP) == 0) {
 	    vgr_jump_to_match(qi, eap->forceit, &redraw_for_dummy,
 		    first_match_buf, target_dir);
     }

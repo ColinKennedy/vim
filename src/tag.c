@@ -289,6 +289,12 @@ do_tag(
     static char_u	**matches = NULL;
     static int		flags;
 
+    if (!forceit && curwin->w_p_stb) {
+        semsg(_("E969: Cannot go to tag. 'switchbuf' is enabled."));
+
+        return;
+    }
+
 #ifdef FEAT_EVAL
     if (tfu_in_use)
     {
@@ -3704,6 +3710,12 @@ jumpto_tag(
 #endif
     size_t	len;
     char_u	*lbuf;
+
+    if (!forceit && postponed_split == 0 && curwin->w_p_stb) {
+        semsg(_("E969: Cannot go to tag. 'switchbuf' is enabled."));
+
+        return FAIL;
+    }
 
     // Make a copy of the line, it can become invalid when an autocommand calls
     // back here recursively.

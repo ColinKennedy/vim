@@ -683,8 +683,7 @@ do_argfile(exarg_T *eap, int argn)
     char_u	*p;
     int		old_arg_idx = curwin->w_arg_idx;
 
-    if (!eap->forceit && curwin->w_p_stb)
-    {
+    if (!eap->forceit && curwin->w_p_stb) {
         semsg(_("E969: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
         return;
     }

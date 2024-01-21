@@ -7258,7 +7258,6 @@ ex_edit(exarg_T *eap)
         && !eap->forceit
         && curwin->w_p_stb) {
         semsg(_("E969: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
-
         return;
     }
 
@@ -9192,7 +9191,6 @@ ex_tag(exarg_T *eap)
 {
     if (!eap->forceit && curwin->w_p_stb) {
         semsg(_("E969: Cannot switch to tag. 'switchbuf' is enabled. Use ! to force it."));
-
         return;
     }
 

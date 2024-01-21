@@ -291,7 +291,6 @@ do_tag(
 
     if (!forceit && curwin->w_p_stb) {
         semsg(_("E969: Cannot go to tag. 'switchbuf' is enabled."));
-
         return;
     }
 
@@ -3713,7 +3712,6 @@ jumpto_tag(
 
     if (!forceit && postponed_split == 0 && curwin->w_p_stb) {
         semsg(_("E969: Cannot go to tag. 'switchbuf' is enabled."));
-
         return FAIL;
     }
 

@@ -122,6 +122,12 @@ wiped out a buffer which contains a mark or is referenced in another way.
 You cannot have two buffers with exactly the same name.  This includes the
 path leading to the file.
 
+							*E969*
+  Buffer cannot be switched
+
+If a window has 'stickybuf' enabled, commands like :edit are disabled because
+the window is stuck to its buffer and cannot be switched.
+
 							*E72*
   Close error on swap file ~
 

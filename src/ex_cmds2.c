@@ -457,6 +457,28 @@ ex_listdo(exarg_T *eap)
     tabpage_T	*tp;
     buf_T	*buf = curbuf;
     int		next_fnum = 0;
+
+    if (curwin->w_p_stb) {
+      if (eap->cmdidx == CMD_ldo && !eap->forceit) {
+        // Disallow :ldo if 'stickybuf' is applied
+        semsg(_("E969: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
+        return;
+      }
+
+      if (win_valid(prevwin)) {
+        // Change the current window to another because 'stickybuf' is enabled
+        curwin = prevwin;
+      } else {
+        // Split the window, which will be 'nostickybuf', and set curwin to that
+        exarg_T new_eap = {
+          .cmdidx = CMD_split,
+          .cmd = "split",
+          .arg = "",
+        };
+        ex_splitview(&new_eap);
+      }
+    }
+
 #if defined(FEAT_SYN_HL)
     char_u	*save_ei = NULL;
 #endif

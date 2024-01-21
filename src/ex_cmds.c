@@ -2428,6 +2428,11 @@ getfile(
     int		retval;
     char_u	*free_me = NULL;
 
+    if (!forceit && curwin->w_p_stb) {
+      semsg(_("E969: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
+      return GETFILE_ERROR;
+    }
+
     if (text_locked())
 	return GETFILE_ERROR;
     if (curbuf_locked())

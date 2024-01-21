@@ -7257,7 +7257,8 @@ ex_edit(exarg_T *eap)
         && eap->cmdidx != CMD_balt
         // All other commands must obey 'stickybuf' / ! rules
         && !eap->forceit
-        && curwin->w_p_stb) {
+        && curwin->w_p_stb)
+    {
         semsg(_("E922: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
         return;
     }

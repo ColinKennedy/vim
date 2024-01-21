@@ -3260,19 +3260,25 @@ qf_jump_edit_buffer(
 		ECMD_HIDE + ECMD_SET_HELP,
 		prev_winid == curwin->w_id ? curwin : NULL);
     }
-    else {
-	if (!forceit && curwin->w_p_stb) {
-	    if (qi->qfl_type == QFLT_LOCATION) {
+    else
+    {
+	if (!forceit && curwin->w_p_stb)
+	{
+	    if (qi->qfl_type == QFLT_LOCATION)
+	    {
 	        // Location lists cannot split or reassign their window
 	        // so 'stickybuf' windows must fail
 	        semsg(_("E922: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
 	        return QF_ABORT;
 	    }
 
-	    if (win_valid(prevwin)) {
+	    if (win_valid(prevwin))
+	    {
 	        // Change the current window to another because 'stickybuf' is enabled
 	        curwin = prevwin;
-	    } else {
+	    }
+	    else
+	    {
 	        // Split the window, which will be 'nostickybuf', and set curwin to that
 	        exarg_T new_eap;
 	        CLEAR_FIELD(new_eap);
@@ -5006,7 +5012,8 @@ qf_jump_first(qf_info_T *qi, int_u save_qfid, int forceit)
 	return;
 
 
-    if (!forceit && curwin->w_p_stb) {
+    if (!forceit && curwin->w_p_stb)
+    {
 	return;
     }
 

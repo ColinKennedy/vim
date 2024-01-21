@@ -458,7 +458,8 @@ ex_listdo(exarg_T *eap)
     buf_T	*buf = curbuf;
     int		next_fnum = 0;
 
-    if (curwin->w_p_stb) {
+    if (curwin->w_p_stb)
+    {
       if (eap->cmdidx == CMD_ldo && !eap->forceit)
       {
         // Disallow :ldo if 'stickybuf' is applied
@@ -466,10 +467,13 @@ ex_listdo(exarg_T *eap)
         return;
       }
 
-      if (win_valid(prevwin)) {
+      if (win_valid(prevwin))
+      {
         // Change the current window to another because 'stickybuf' is enabled
         curwin = prevwin;
-      } else {
+      }
+      else
+      {
         // Split the window, which will be 'nostickybuf', and set curwin to that
         exarg_T new_eap;
         CLEAR_FIELD(new_eap);

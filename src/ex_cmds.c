@@ -2428,7 +2428,8 @@ getfile(
     int		retval;
     char_u	*free_me = NULL;
 
-    if (!forceit && curwin->w_p_stb) {
+    if (!forceit && curwin->w_p_stb)
+    {
       semsg(_("E922: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
       return GETFILE_ERROR;
     }

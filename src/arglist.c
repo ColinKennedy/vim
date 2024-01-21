@@ -683,7 +683,8 @@ do_argfile(exarg_T *eap, int argn)
     char_u	*p;
     int		old_arg_idx = curwin->w_arg_idx;
 
-    if (!eap->forceit && curwin->w_p_stb) {
+    if (!eap->forceit && curwin->w_p_stb)
+    {
         semsg(_("E922: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
         return;
     }
@@ -835,7 +836,8 @@ ex_argedit(exarg_T *eap)
     // Whether curbuf will be reused, curbuf->b_ffname will be set.
     int curbuf_is_reusable = curbuf_reusable();
 
-    if (curwin->w_p_stb && !eap->forceit) {
+    if (curwin->w_p_stb && !eap->forceit)
+    {
 	semsg(_("E922: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
 	return;
     }

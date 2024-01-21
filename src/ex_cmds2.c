@@ -459,7 +459,8 @@ ex_listdo(exarg_T *eap)
     int		next_fnum = 0;
 
     if (curwin->w_p_stb) {
-      if (eap->cmdidx == CMD_ldo && !eap->forceit) {
+      if (eap->cmdidx == CMD_ldo && !eap->forceit)
+      {
         // Disallow :ldo if 'stickybuf' is applied
         semsg(_("E922: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
         return;

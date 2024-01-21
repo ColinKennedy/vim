@@ -2,6 +2,11 @@
 
 source check.vim
 
+" Find the number of open windows in the current tab
+func s:get_windows_count()
+  return tabpagewinnr(tabpagenr(), '$')
+endfunc
+
 " Create some unnamed buffers.
 func s:make_buffers_list()
   enew
@@ -302,6 +307,7 @@ func Test_argedit()
   let l:last = bufnr()
 
   set stickybuf
+
   let l:current = bufnr()
   let l:caught = s:execute_try_catch("argedit first middle last")
   call assert_equal(1, l:caught)
@@ -556,6 +562,7 @@ func Test_bufdo_choose_available_window()
 
   let l:current = bufnr()
   call assert_notequal(l:current, l:other)
+
   let l:caught = s:execute_try_catch("bufdo echo ''")
   call assert_equal(0, l:caught)
   call assert_equal(l:nostickybuf_window, win_getid())
@@ -850,23 +857,27 @@ func Test_cnext()
   call assert_equal(l:first_window, win_getid())
 endfunc
 
-" " TODO: Finish this
-" " Allow :cnext and create a 'nostickybuf' window if none exists
-" func Test_cnext_make_new_window()
-"   CheckFeature quickfix
-"   call s:reset_all_buffers()
-"
-"   let [l:current, _] = s:make_simple_quickfix()
-"   let l:current = win_getid()
-"
-"   " let l:caught = s:execute_try_catch("cnext")
-"   " call assert_equal(0, l:caught)
-"   " call assert_notequal(l:current, win_getid())
-"   "
-"   " let l:caught = s:execute_try_catch("cnext!")
-"   " call assert_equal(0, l:caught)
-"   " call assert_equal(l:current, win_getid())
-" endfunc
+" Allow :cnext and create a 'nostickybuf' window if none exists
+func Test_cnext_make_new_window()
+  CheckFeature quickfix
+  call s:reset_all_buffers()
+
+  let [l:current, _] = s:make_simple_quickfix()
+  let l:current = win_getid()
+
+  cfirst!
+
+  let l:windows = s:get_windows_count()
+  let l:expected = l:windows + 1  " We're about to create a new split window
+
+  let l:caught = s:execute_try_catch("cnext")
+  call assert_equal(0, l:caught)
+  call assert_equal(l:expected, s:get_windows_count())
+
+  let l:caught = s:execute_try_catch("cnext!")
+  call assert_equal(0, l:caught)
+  call assert_equal(l:expected, s:get_windows_count())
+endfunc
 
 " Allow :cprevious but the 'nostickybuf' window is selected, instead
 func Test_cprevious()
@@ -1169,6 +1180,9 @@ func Test_lNext()
   let l:caught = s:execute_try_catch("lNext")
   call assert_equal(1, l:caught)
   call assert_equal(l:middle, bufnr())
+
+  lnext!  " Reset for the next test
+
   let l:caught = s:execute_try_catch("lNext!")
   call assert_equal(0, l:caught)
   call assert_equal(l:first, bufnr())
@@ -1185,6 +1199,9 @@ func Test_lNfile()
   let l:caught = s:execute_try_catch("lNfile")
   call assert_equal(1, l:caught)
   call assert_equal(l:current, bufnr())
+
+  lnext!  " Reset for the next test
+
   let l:caught = s:execute_try_catch("lNfile!")
   call assert_equal(0, l:caught)
   call assert_equal(l:first, bufnr())
@@ -1316,6 +1333,7 @@ func Test_llast()
   let l:caught = s:execute_try_catch("llast")
   call assert_equal(1, l:caught)
   call assert_equal(l:first, bufnr())
+
   let l:caught = s:execute_try_catch("llast!")
   call assert_equal(0, l:caught)
   call assert_equal(l:last, bufnr())
@@ -1332,6 +1350,7 @@ func Test_lnext()
   let l:caught = s:execute_try_catch("lnext")
   call assert_equal(1, l:caught)
   call assert_equal(l:first, bufnr())
+
   let l:caught = s:execute_try_catch("lnext!")
   call assert_equal(0, l:caught)
   call assert_equal(l:middle, bufnr())
@@ -1348,6 +1367,9 @@ func Test_lnfile()
   let l:caught = s:execute_try_catch("lnfile")
   call assert_equal(1, l:caught)
   call assert_equal(l:current, bufnr())
+
+  lprevious!  " Reset for the next test call
+
   let l:caught = s:execute_try_catch("lnfile!")
   call assert_equal(0, l:caught)
   call assert_equal(l:last, bufnr())
@@ -1364,6 +1386,9 @@ func Test_lpfile()
   let l:caught = s:execute_try_catch("lpfile")
   call assert_equal(1, l:caught)
   call assert_equal(l:current, bufnr())
+
+  lnext!  " Reset for the next test call
+
   let l:caught = s:execute_try_catch("lpfile!")
   call assert_equal(0, l:caught)
   call assert_equal(l:first, bufnr())
@@ -1380,6 +1405,9 @@ func Test_lprevious()
   let l:caught = s:execute_try_catch("lprevious")
   call assert_equal(1, l:caught)
   call assert_equal(l:middle, bufnr())
+
+  lnext!  " Reset for the next test call
+
   let l:caught = s:execute_try_catch("lprevious!")
   call assert_equal(0, l:caught)
   call assert_equal(l:first, bufnr())
@@ -1396,6 +1424,7 @@ func Test_lrewind()
   let l:caught = s:execute_try_catch("lrewind")
   call assert_equal(1, l:caught)
   call assert_equal(l:middle, bufnr())
+
   let l:caught = s:execute_try_catch("lrewind!")
   call assert_equal(0, l:caught)
   call assert_equal(l:first, bufnr())
@@ -2560,12 +2589,15 @@ func Test_windo()
   set stickybuf
 
   let l:current = win_getid()
+
   let l:caught = s:execute_try_catch("windo echo ''")
   call assert_equal(0, l:caught)
   call assert_equal(l:current_window, win_getid())
+
   let l:caught = s:execute_try_catch("windo buffer " . l:current_buffer)
   call assert_equal(1, l:caught)
   call assert_equal(l:current_window, win_getid())
+
   let l:caught = s:execute_try_catch("windo buffer! " . l:current_buffer)
   call assert_equal(0, l:caught)
   call assert_equal(l:current_window, win_getid())

@@ -3260,9 +3260,32 @@ qf_jump_edit_buffer(
 		ECMD_HIDE + ECMD_SET_HELP,
 		prev_winid == curwin->w_id ? curwin : NULL);
     }
-    else
+    else {
+	if (!forceit && curwin->w_p_stb) {
+	    if (qi->qfl_type == QFLT_LOCATION) {
+	        // Location lists cannot split or reassign their window
+	        // so 'stickybuf' windows must fail
+	        semsg(_("E969: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
+	        return QF_ABORT;
+	    }
+
+	    if (win_valid(prevwin)) {
+	        // Change the current window to another because 'stickybuf' is enabled
+	        curwin = prevwin;
+	    } else {
+	        // Split the window, which will be 'nostickybuf', and set curwin to that
+	        exarg_T new_eap = {
+	          .cmdidx = CMD_split,
+	          .cmd = "split",
+	          .arg = "",
+	        };
+	        ex_splitview(&new_eap);
+	    }
+	}
+
 	retval = buflist_getfile(qf_ptr->qf_fnum,
 		(linenr_T)1, GETF_SETMARK | GETF_SWITCH, forceit);
+    }
 
     // If a location list, check whether the associated window is still
     // present.

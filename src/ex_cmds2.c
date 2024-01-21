@@ -470,11 +470,11 @@ ex_listdo(exarg_T *eap)
         curwin = prevwin;
       } else {
         // Split the window, which will be 'nostickybuf', and set curwin to that
-        exarg_T new_eap = {
-          .cmdidx = CMD_split,
-          .cmd = "split",
-          .arg = "",
-        };
+        exarg_T new_eap;
+        CLEAR_FIELD(new_eap);
+        new_eap.cmdidx = CMD_split;
+        new_eap.cmd = (char_u *)"split";
+        new_eap.arg = (char_u *)"";
         ex_splitview(&new_eap);
       }
     }

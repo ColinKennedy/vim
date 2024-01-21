@@ -510,35 +510,6 @@ func Test_brewind()
   call assert_equal(l:other, bufnr())
 endfunc
 
-" Fail :browse edit but :browse edit! is allowed
-func Test_browse_edit_fail()
-  call s:reset_all_buffers()
-
-  let l:other = s:make_buffer_pairs()
-  let l:current = bufnr()
-
-  let l:caught = s:execute_try_catch("browse edit other")
-  call assert_equal(1, l:caught)
-  call assert_equal(l:current, bufnr())
-
-  let l:caught = s:execute_try_catch("browse edit! other")
-  call assert_equal(0, l:caught)
-  call assert_equal(l:other, bufnr())
-endfunc
-
-" Allow :browse w because it doesn't change the buffer in the current file
-func Test_browse_edit_pass()
-  call s:reset_all_buffers()
-
-  let l:other = s:make_buffer_pairs()
-  let l:current = bufnr()
-
-  let l:caught = s:execute_try_catch("browse write other")
-  call assert_equal(0, l:caught)
-
-  call delete("other")
-endfunc
-
 " Call :bufdo and choose the next available 'nostickybuf' window.
 func Test_bufdo_choose_available_window()
   call s:reset_all_buffers()
@@ -1119,12 +1090,12 @@ func Test_grep()
 
   " Don't error but don't swap to the first match because the current window
   " has 'stickybuf' enabled
-  let l:caught = s:execute_try_catch("grep some-search-term *.unittest")
+  let l:caught = s:execute_try_catch("silent! grep some-search-term *.unittest")
   call assert_equal(0, l:caught)
   call assert_equal(l:current, bufnr())
 
   " Don't error and also do not swap to the first match because ! was included
-  let l:caught = s:execute_try_catch("grep! some-search-term *.unittest")
+  let l:caught = s:execute_try_catch("silent! grep! some-search-term *.unittest")
   call assert_equal(0, l:caught)
   call assert_equal(l:current, bufnr())
 

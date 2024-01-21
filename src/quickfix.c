@@ -3146,7 +3146,7 @@ qf_goto_win_with_qfl_file(int qf_fnum)
 	    // Didn't find it, go to the window before the quickfix
 	    // window, unless 'switchbuf' contains 'uselast': in this case we
 	    // try to jump to the previously used window first.
-	    if ((swb_flags & SWB_USELAST) && !prevwin->w_p_stb && win_valid(prevwin)) {
+	    if ((swb_flags & SWB_USELAST) && !prevwin->w_p_stb && win_valid(prevwin))
 		win = prevwin;
 	    else if (altwin != NULL)
 		win = altwin;
@@ -6581,7 +6581,7 @@ ex_vimgrep(exarg_T *eap)
     // Jump to first match if the current window is not 'stickybuf'
     if (!qf_list_empty(qf_get_curlist(qi)))
     {
-	if ((eap->forceit || !curwin->w_p_stb) && (args.flags & VGR_NOJUMP) == 0) {
+	if ((eap->forceit || !curwin->w_p_stb) && (args.flags & VGR_NOJUMP) == 0)
 	    vgr_jump_to_match(qi, eap->forceit, &redraw_for_dummy,
 		    first_match_buf, target_dir);
     }

@@ -291,7 +291,7 @@ do_tag(
 
     if (!forceit && curwin->w_p_stb) {
         semsg(_("E969: Cannot go to tag. 'switchbuf' is enabled."));
-        return;
+        return FALSE;
     }
 
 #ifdef FEAT_EVAL

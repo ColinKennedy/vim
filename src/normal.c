@@ -3324,7 +3324,7 @@ nv_ctrlo(cmdarg_T *cap)
 nv_hat(cmdarg_T *cap)
 {
     if (curwin->w_p_stb) {
-        semsg(_("E969: Cannot go to buffer. 'switchbuf' is enabled."));
+        semsg(_("E922: Cannot go to buffer. 'switchbuf' is enabled."));
         return;
     }
 
@@ -4080,7 +4080,7 @@ nv_gotofile(cmdarg_T *cap)
 #endif
 
     if (curwin->w_p_stb) {
-        semsg(_("E969: Cannot go to buffer. 'switchbuf' is enabled."));
+        semsg(_("E922: Cannot go to buffer. 'switchbuf' is enabled."));
         return;
     }
 

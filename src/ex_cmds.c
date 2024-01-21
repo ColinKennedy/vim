@@ -2429,7 +2429,7 @@ getfile(
     char_u	*free_me = NULL;
 
     if (!forceit && curwin->w_p_stb) {
-      semsg(_("E969: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
+      semsg(_("E922: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
       return GETFILE_ERROR;
     }
 

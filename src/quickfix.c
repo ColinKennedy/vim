@@ -3265,7 +3265,7 @@ qf_jump_edit_buffer(
 	    if (qi->qfl_type == QFLT_LOCATION) {
 	        // Location lists cannot split or reassign their window
 	        // so 'stickybuf' windows must fail
-	        semsg(_("E969: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
+	        semsg(_("E922: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
 	        return QF_ABORT;
 	    }
 

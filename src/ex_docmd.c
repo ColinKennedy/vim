@@ -7165,7 +7165,7 @@ ex_resize(exarg_T *eap)
 ex_find(exarg_T *eap)
 {
     if (curwin->w_p_stb && !eap->forceit) {
-        semsg(_("E969: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
+        semsg(_("E922: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
         return;
     }
 
@@ -7257,7 +7257,7 @@ ex_edit(exarg_T *eap)
         // All other commands must obey 'stickybuf' / ! rules
         && !eap->forceit
         && curwin->w_p_stb) {
-        semsg(_("E969: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
+        semsg(_("E922: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
         return;
     }
 
@@ -9190,7 +9190,7 @@ ex_stag(exarg_T *eap)
 ex_tag(exarg_T *eap)
 {
     if (!eap->forceit && curwin->w_p_stb) {
-        semsg(_("E969: Cannot switch to tag. 'switchbuf' is enabled. Use ! to force it."));
+        semsg(_("E922: Cannot switch to tag. 'switchbuf' is enabled. Use ! to force it."));
         return;
     }
 

@@ -1105,7 +1105,7 @@ goto_buffer(
 
     if (!is_split_cmd && !eap->forceit && curwin->w_p_stb)
     {
-      semsg(_("E969: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
+      semsg(_("E922: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
       return;
     }
 

@@ -290,7 +290,7 @@ do_tag(
     static int		flags;
 
     if (!forceit && curwin->w_p_stb) {
-        semsg(_("E969: Cannot go to tag. 'switchbuf' is enabled."));
+        semsg(_("E922: Cannot go to tag. 'switchbuf' is enabled."));
         return FALSE;
     }
 
@@ -3711,7 +3711,7 @@ jumpto_tag(
     char_u	*lbuf;
 
     if (!forceit && postponed_split == 0 && curwin->w_p_stb) {
-        semsg(_("E969: Cannot go to tag. 'switchbuf' is enabled."));
+        semsg(_("E922: Cannot go to tag. 'switchbuf' is enabled."));
         return FAIL;
     }
 

@@ -1781,7 +1781,7 @@ func Test_normal_ctrl_w_ctrl_square_bracket_right()
   call delete("Xfile")
 endfunc
 
-" Fail to jump to a tag with gt if 'stickybuf' is enabled
+" Fail to jump to a tag with <C-]> if 'stickybuf' is enabled
 func Test_normal_gt()
   call s:reset_all_buffers()
 

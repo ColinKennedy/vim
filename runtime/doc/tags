@@ -4539,6 +4539,8 @@ E151	helphelp.txt	/*E151*
 E1510	change.txt	/*E1510*
 E1511	options.txt	/*E1511*
 E1512	options.txt	/*E1512*
+E1513	message.txt	/*E1513*
+E1514	message.txt	/*E1514*
 E152	helphelp.txt	/*E152*
 E153	helphelp.txt	/*E153*
 E154	helphelp.txt	/*E154*
@@ -5369,7 +5371,6 @@ E919	repeat.txt	/*E919*
 E92	message.txt	/*E92*
 E920	channel.txt	/*E920*
 E921	channel.txt	/*E921*
-E922	message.txt	/*E922*
 E923	builtin.txt	/*E923*
 E924	quickfix.txt	/*E924*
 E925	quickfix.txt	/*E925*

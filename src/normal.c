@@ -3325,7 +3325,7 @@ nv_hat(cmdarg_T *cap)
 {
     if (curwin->w_p_stb)
     {
-        semsg(_(e_stickybuf_cannot_go_to_buffer_disabled));
+        semsg("%s", e_stickybuf_cannot_go_to_buffer_disabled);
         return;
     }
 
@@ -4082,7 +4082,7 @@ nv_gotofile(cmdarg_T *cap)
 
     if (curwin->w_p_stb)
     {
-        semsg(_(e_stickybuf_cannot_go_to_buffer_disabled));
+        semsg("%s", e_stickybuf_cannot_go_to_buffer_disabled);
         return;
     }
 

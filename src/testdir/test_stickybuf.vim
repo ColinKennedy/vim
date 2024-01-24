@@ -202,13 +202,15 @@ func s:reset_all_buffers()
   delmarks A-Z0-9
 endfunc
 
-" Try to run `command` and remember if the command raises E922 or not
+" Try to run `command` and remember if the command raises a known error code
 func s:execute_try_catch(command)
   let l:caught = 0
 
   try
     execute a:command
-  catch /E922:/
+  catch /E1513:/
+    return 1
+  catch /E1514:/
     return 1
   endtry
 

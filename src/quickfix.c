@@ -3268,7 +3268,7 @@ qf_jump_edit_buffer(
 	    {
 	        // Location lists cannot split or reassign their window
 	        // so 'stickybuf' windows must fail
-	        semsg(_(e_stickybuf_cannot_go_to_buffer_forceit));
+	        semsg("%s", e_stickybuf_cannot_go_to_buffer_forceit);
 	        return QF_ABORT;
 	    }
 

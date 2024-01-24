@@ -460,28 +460,28 @@ ex_listdo(exarg_T *eap)
 
     if (curwin->w_p_stb)
     {
-      if (eap->cmdidx == CMD_ldo && !eap->forceit)
-      {
-        // Disallow :ldo if 'stickybuf' is applied
-        semsg(_(e_stickybuf_cannot_go_to_buffer_forceit));
-        return;
-      }
+        if (eap->cmdidx == CMD_ldo && !eap->forceit)
+        {
+            // Disallow :ldo if 'stickybuf' is applied
+            semsg("%s", e_stickybuf_cannot_go_to_buffer_forceit);
+            return;
+        }
 
-      if (win_valid(prevwin))
-      {
-        // Change the current window to another because 'stickybuf' is enabled
-        curwin = prevwin;
-      }
-      else
-      {
-        // Split the window, which will be 'nostickybuf', and set curwin to that
-        exarg_T new_eap;
-        CLEAR_FIELD(new_eap);
-        new_eap.cmdidx = CMD_split;
-        new_eap.cmd = (char_u *)"split";
-        new_eap.arg = (char_u *)"";
-        ex_splitview(&new_eap);
-      }
+        if (win_valid(prevwin))
+        {
+            // Change the current window to another because 'stickybuf' is enabled
+            curwin = prevwin;
+        }
+        else
+        {
+            // Split the window, which will be 'nostickybuf', and set curwin to that
+            exarg_T new_eap;
+            CLEAR_FIELD(new_eap);
+            new_eap.cmdidx = CMD_split;
+            new_eap.cmd = (char_u *)"split";
+            new_eap.arg = (char_u *)"";
+            ex_splitview(&new_eap);
+        }
     }
 
 #if defined(FEAT_SYN_HL)

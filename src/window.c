@@ -157,6 +157,22 @@ log_frame_layout(frame_T *frame)
 #endif
 
 /*
+ * Check if the current window is allowed to move to a different buffer.
+ * If the window has 'stickybuf', then forceit must be TRUE or this function
+ * will return FALSE.
+ */
+int is_allowed_to_go_to_buffer(int forceit)
+{
+    if (!forceit && curwin->w_p_stb)
+    {
+	semsg("%s", e_stickybuf_cannot_go_to_buffer_forceit);
+	return FALSE;
+    }
+
+    return TRUE;
+}
+
+/*
  * Return the current window, unless in the cmdline window and "prevwin" is
  * set, then return "prevwin".
  */

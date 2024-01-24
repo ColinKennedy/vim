@@ -3605,3 +3605,25 @@ EXTERN char e_wrong_number_of_characters_for_field_str[]
 	INIT(= N_("E1511: Wrong number of characters for field \"%s\""));
 EXTERN char e_wrong_character_width_for_field_str[]
 	INIT(= N_("E1512: Wrong character width for field \"%s\""));
+EXTERN char e_cannot_go_to_buffer_wrong_character_width_for_field_str[]
+	INIT(= N_("E1512: Wrong character width for field \"%s\""));
+EXTERN char e_stickybuf_cannot_go_to_buffer_disabled[]
+	INIT(= N_("E922: Cannot edit buffer. 'switchbuf' is enabled."))
+EXTERN char e_stickybuf_cannot_go_to_buffer_forceit[]
+	INIT(= N_("E922: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."))
+
+/*
+ * Check if the current window is allowed to move to a different buffer.
+ * If the window has 'stickybuf', then forceit must be TRUE or this function
+ * will return FALSE.
+ */
+int is_allowed_to_go_to_buffer(int forceit)
+{
+    if (!forceit && curwin->w_p_stb)
+    {
+	semsg(_(e_stickybuf_cannot_go_to_buffer_forceit))
+	return FALSE;
+    }
+
+    return TRUE;
+}

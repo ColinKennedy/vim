@@ -7164,11 +7164,8 @@ ex_resize(exarg_T *eap)
     static void
 ex_find(exarg_T *eap)
 {
-    if (curwin->w_p_stb && !eap->forceit)
-    {
-        semsg(_("E922: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
+    if (!is_allowed_to_go_to_buffer(eap->forceit))
         return;
-    }
 
     char_u	*fname;
     int		count;
@@ -7251,17 +7248,12 @@ ex_open(exarg_T *eap)
     static void
 ex_edit(exarg_T *eap)
 {
-    if (
-        // Exclude commands which keep the window's current buffer
-        eap->cmdidx != CMD_badd
-        && eap->cmdidx != CMD_balt
-        // All other commands must obey 'stickybuf' / ! rules
-        && !eap->forceit
-        && curwin->w_p_stb)
-    {
-        semsg(_("E922: Cannot edit buffer. 'switchbuf' is enabled. Use ! to force it."));
+    if (// Exclude commands which keep the window's current buffer
+	    eap->cmdidx != CMD_badd
+	    && eap->cmdidx != CMD_balt
+	    // All other commands must obey 'stickybuf' / ! rules
+	    && !is_allowed_to_go_to_buffer(eap->forceit))
         return;
-    }
 
     do_exedit(eap, NULL);
 }
@@ -9191,11 +9183,8 @@ ex_stag(exarg_T *eap)
     static void
 ex_tag(exarg_T *eap)
 {
-    if (!eap->forceit && curwin->w_p_stb)
-    {
-        semsg(_("E922: Cannot switch to tag. 'switchbuf' is enabled. Use ! to force it."));
+    if (!is_allowed_to_go_to_buffer(eap->forceit))
         return;
-    }
 
     ex_tag_cmd(eap, cmdnames[eap->cmdidx].cmd_name);
 }

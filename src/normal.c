@@ -3325,7 +3325,7 @@ nv_hat(cmdarg_T *cap)
 {
     if (curwin->w_p_stb)
     {
-        semsg(_("E922: Cannot go to buffer. 'switchbuf' is enabled."));
+        semsg(_(e_stickybuf_cannot_go_to_buffer_disabled));
         return;
     }
 

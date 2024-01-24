@@ -1103,11 +1103,8 @@ goto_buffer(
     int		is_split_cmd = *eap->cmd == 's';
     int		save_sea = swap_exists_action;
 
-    if (!is_split_cmd && !eap->forceit && curwin->w_p_stb)
-    {
-      semsg(_("E922: Cannot go to buffer. 'switchbuf' is enabled. Use ! to force it."));
-      return;
-    }
+    if (!is_split_cmd && !is_allowed_to_go_to_buffer(eap->forceit))
+	return;
 
     set_bufref(&old_curbuf, curbuf);
 

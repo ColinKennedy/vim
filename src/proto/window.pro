@@ -1,5 +1,5 @@
 /* window.c */
-int is_allowed_to_go_to_buffer(int forceit);
+int check_can_set_curbuf(int forceit);
 int window_layout_locked(enum CMD_index cmd);
 win_T *prevwin_curwin(void);
 win_T *swbuf_goto_win_with_buf(buf_T *buf);

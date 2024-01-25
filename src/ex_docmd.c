@@ -7164,7 +7164,7 @@ ex_resize(exarg_T *eap)
     static void
 ex_find(exarg_T *eap)
 {
-    if (!is_allowed_to_go_to_buffer(eap->forceit))
+    if (!check_can_set_curbuf(eap->forceit))
         return;
 
     char_u	*fname;
@@ -7252,7 +7252,7 @@ ex_edit(exarg_T *eap)
 	    eap->cmdidx != CMD_badd
 	    && eap->cmdidx != CMD_balt
 	    // All other commands must obey 'stickybuf' / ! rules
-	    && !is_allowed_to_go_to_buffer(eap->forceit))
+	    && !check_can_set_curbuf(eap->forceit))
         return;
 
     do_exedit(eap, NULL);
@@ -9183,7 +9183,7 @@ ex_stag(exarg_T *eap)
     static void
 ex_tag(exarg_T *eap)
 {
-    if (!is_allowed_to_go_to_buffer(eap->forceit))
+    if (!check_can_set_curbuf(eap->forceit))
         return;
 
     ex_tag_cmd(eap, cmdnames[eap->cmdidx].cmd_name);

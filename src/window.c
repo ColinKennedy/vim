@@ -161,7 +161,7 @@ log_frame_layout(frame_T *frame)
  * If the window has 'stickybuf', then forceit must be TRUE or this function
  * will return FALSE.
  */
-int is_allowed_to_go_to_buffer(int forceit)
+int check_can_set_curbuf(int forceit)
 {
     if (!forceit && curwin->w_p_stb)
     {

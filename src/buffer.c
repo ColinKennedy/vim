@@ -1103,7 +1103,7 @@ goto_buffer(
     int		is_split_cmd = *eap->cmd == 's';
     int		save_sea = swap_exists_action;
 
-    if (!is_split_cmd && !is_allowed_to_go_to_buffer(eap->forceit))
+    if (!is_split_cmd && !check_can_set_curbuf(eap->forceit))
 	return;
 
     set_bufref(&old_curbuf, curbuf);

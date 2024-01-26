@@ -468,10 +468,8 @@ ex_listdo(exarg_T *eap)
         }
 
         if (win_valid(prevwin))
-        {
             // Change the current window to another because 'stickybuf' is enabled
             curwin = prevwin;
-        }
         else
         {
             // Split the window, which will be 'nostickybuf', and set curwin to that

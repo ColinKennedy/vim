@@ -3273,10 +3273,8 @@ qf_jump_edit_buffer(
 	    }
 
 	    if (win_valid(prevwin))
-	    {
 	        // Change the current window to another because 'stickybuf' is enabled
 	        curwin = prevwin;
-	    }
 	    else
 	    {
 	        // Split the window, which will be 'nostickybuf', and set curwin to that
@@ -5013,9 +5011,7 @@ qf_jump_first(qf_info_T *qi, int_u save_qfid, int forceit)
 
 
     if (!forceit && curwin->w_p_stb)
-    {
 	return;
-    }
 
 
     // Autocommands might have cleared the list, check for that.

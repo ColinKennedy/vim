@@ -7248,7 +7248,8 @@ ex_open(exarg_T *eap)
     static void
 ex_edit(exarg_T *eap)
 {
-    if (// Exclude commands which keep the window's current buffer
+    // Exclude commands which keep the window's current buffer
+    if (
 	    eap->cmdidx != CMD_badd
 	    && eap->cmdidx != CMD_balt
 	    // All other commands must obey 'stickybuf' / ! rules

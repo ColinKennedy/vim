@@ -2397,6 +2397,7 @@ EXTERN char e_io_file_requires_name_to_be_set[]
 #ifdef FEAT_EVAL
 EXTERN char e_invalid_callback_argument[]
 	INIT(= N_("E921: Invalid callback argument"));
+// E922 unused
 EXTERN char e_second_argument_of_function_must_be_list_or_dict[]
 	INIT(= N_("E923: Second argument of function() must be a list or a dict"));
 #endif
@@ -3604,8 +3605,6 @@ EXTERN char e_val_too_large[]
 EXTERN char e_wrong_number_of_characters_for_field_str[]
 	INIT(= N_("E1511: Wrong number of characters for field \"%s\""));
 EXTERN char e_wrong_character_width_for_field_str[]
-	INIT(= N_("E1512: Wrong character width for field \"%s\""));
-EXTERN char e_cannot_go_to_buffer_wrong_character_width_for_field_str[]
 	INIT(= N_("E1512: Wrong character width for field \"%s\""));
 EXTERN char e_stickybuf_cannot_go_to_buffer_disabled[]
 	INIT(= N_("E1513: Cannot edit buffer. 'stickybuf' is enabled"));

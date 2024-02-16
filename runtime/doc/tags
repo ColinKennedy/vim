@@ -990,7 +990,6 @@ $quote	eval.txt	/*$quote*
 'stal'	options.txt	/*'stal'*
 'startofline'	options.txt	/*'startofline'*
 'statusline'	options.txt	/*'statusline'*
-'stickybuf'	options.txt	/*'stickybuf'*
 'stl'	options.txt	/*'stl'*
 'stmp'	options.txt	/*'stmp'*
 'sts'	options.txt	/*'sts'*
@@ -1295,6 +1294,7 @@ $quote	eval.txt	/*$quote*
 'winaltkeys'	options.txt	/*'winaltkeys'*
 'wincolor'	options.txt	/*'wincolor'*
 'window'	options.txt	/*'window'*
+'winfixbuf'	options.txt	/*'winfixbuf'*
 'winfixheight'	options.txt	/*'winfixheight'*
 'winfixwidth'	options.txt	/*'winfixwidth'*
 'winheight'	options.txt	/*'winheight'*
@@ -4543,7 +4543,6 @@ E1510	change.txt	/*E1510*
 E1511	options.txt	/*E1511*
 E1512	options.txt	/*E1512*
 E1513	message.txt	/*E1513*
-E1514	message.txt	/*E1514*
 E152	helphelp.txt	/*E152*
 E153	helphelp.txt	/*E153*
 E154	helphelp.txt	/*E154*
@@ -5780,6 +5779,7 @@ W19	autocmd.txt	/*W19*
 W20	if_pyth.txt	/*W20*
 W21	if_pyth.txt	/*W21*
 W22	userfunc.txt	/*W22*
+W23	message.txt	/*W23*
 WORD	motion.txt	/*WORD*
 WSL	os_win32.txt	/*WSL*
 WWW	intro.txt	/*WWW*

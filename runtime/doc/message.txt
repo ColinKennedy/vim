@@ -129,13 +129,6 @@ If a window has 'winfixbuf' enabled, you cannot change that window's current
 buffer. You need to set 'nowinfixbuf' before continuing. You may use [!] to
 force the window to switch buffers, if your command supports it.
 
-							*W23*  >
-  Warning: 'winfixbuf' is enabled. Skipped jumping to the first match.
-
-If a window has 'winfixbuf' enabled, your command will complete successfully
-but any "jump to buffer" behavior is disabled. You may use [!] to force the
-window to switch buffers, if your command supports it.
-
 							*E72*
   Close error on swap file ~
 

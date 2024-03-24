@@ -7276,14 +7276,14 @@ ex_open(exarg_T *eap)
     static void
 ex_edit(exarg_T *eap)
 {
-    char *ffname = eap->cmdidx == CMD_enew ? NULL : eap->arg;
+    char_u *ffname = eap->cmdidx == CMD_enew ? NULL : eap->arg;
 
     // Exclude commands which keep the window's current buffer
     if (
 	eap->cmdidx != CMD_badd
 	&& eap->cmdidx != CMD_balt
 	// All other commands must obey 'winfixbuf' / ! rules
-	&& (is_other_file(0, (char_u *)ffname) && !check_can_set_curbuf_forceit(eap->forceit))
+	&& (is_other_file(0, ffname) && !check_can_set_curbuf_forceit(eap->forceit))
     )
         return;
 

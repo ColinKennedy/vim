@@ -2106,12 +2106,12 @@ buflist_new(
     /*
      * If the file name already exists in the list, update the entry.
      */
-#ifdef UNIX
+// #ifdef UNIX
     // On Unix we can use inode numbers when the file exists.  Works better
     // for hard links.
     if (sfname == NULL || mch_stat((char *)sfname, &st) < 0)
 	st.st_dev = (dev_T)-1;
-#endif
+// #endif
     if (ffname != NULL && !(flags & (BLN_DUMMY | BLN_NEW)) && (buf =
 #ifdef UNIX
 		buflist_findname_stat(ffname, &st)
@@ -3504,10 +3504,10 @@ setfname(
 	 * - if the buffer is loaded, fail
 	 * - if the buffer is not loaded, delete it from the list
 	 */
-#ifdef UNIX
+// #ifdef UNIX
 	if (mch_stat((char *)ffname, &st) < 0)
 	    st.st_dev = (dev_T)-1;
-#endif
+// #endif
 	if (!(buf->b_flags & BF_DUMMY))
 #ifdef UNIX
 	    obuf = buflist_findname_stat(ffname, &st);

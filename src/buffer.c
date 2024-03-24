@@ -3766,7 +3766,7 @@ otherfile_buf(
     return TRUE;
 }
 
-#if defined(PROTO)
+// #if defined(PROTO)
 /*
  * Set inode and device number for a buffer.
  * Must always be called when b_fname is changed!.
@@ -3798,7 +3798,7 @@ buf_same_ino(
 	    && stp->st_dev == buf->b_dev
 	    && stp->st_ino == buf->b_ino);
 }
-#endif
+// #endif
 
 /*
  * Print info about the current buffer.

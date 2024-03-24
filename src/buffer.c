@@ -3715,9 +3715,9 @@ buflist_altfpos(win_T *win)
 otherfile(char_u *ffname)
 {
     return otherfile_buf(curbuf, ffname
-#ifdef UNIX
+// #ifdef UNIX
 	    , NULL
-#endif
+// #endif
 	    );
 }
 

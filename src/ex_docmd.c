@@ -465,7 +465,8 @@ restore_dbg_stuff(struct dbg_stuff *dsp)
 //
 static int is_other_file(int fnum, char_u *ffname)
 {
-  if (fnum != 0) {
+  if (fnum != 0)
+  {
     if (fnum == curbuf->b_fnum)
       return FALSE;
 

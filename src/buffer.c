@@ -37,13 +37,13 @@ static void	enter_buffer(buf_T *buf);
 static void	buflist_getfpos(void);
 static char_u	*buflist_match(regmatch_T *rmp, buf_T *buf, int ignore_case);
 static char_u	*fname_match(regmatch_T *rmp, char_u *name, int ignore_case);
-#ifdef UNIX
+// #ifdef UNIX
 static buf_T	*buflist_findname_stat(char_u *ffname, stat_T *st);
 static int	otherfile_buf(buf_T *buf, char_u *ffname, stat_T *stp);
 static int	buf_same_ino(buf_T *buf, stat_T *stp);
-#else
-static int	otherfile_buf(buf_T *buf, char_u *ffname);
-#endif
+// #else
+// static int	otherfile_buf(buf_T *buf, char_u *ffname);
+// #endif
 static int	value_changed(char_u *str, char_u **last);
 static int	append_arg_number(win_T *wp, char_u *buf, int buflen, int add_file);
 static void	free_buffer(buf_T *);
@@ -2094,9 +2094,9 @@ buflist_new(
     char_u	*ffname = ffname_arg;
     char_u	*sfname = sfname_arg;
     buf_T	*buf;
-#ifdef UNIX
+// #ifdef UNIX
     stat_T	st;
-#endif
+// #endif
 
     if (top_file_num == 1)
 	hash_init(&buf_hashtab);
@@ -3477,9 +3477,9 @@ setfname(
     char_u	*ffname = ffname_arg;
     char_u	*sfname = sfname_arg;
     buf_T	*obuf = NULL;
-#ifdef UNIX
+// #ifdef UNIX
     stat_T	st;
-#endif
+// #endif
 
     if (ffname == NULL || *ffname == NUL)
     {
@@ -3489,9 +3489,9 @@ setfname(
 	else
 	    buf->b_sfname = NULL;
 	VIM_CLEAR(buf->b_ffname);
-#ifdef UNIX
+// #ifdef UNIX
 	st.st_dev = (dev_T)-1;
-#endif
+// #endif
     }
     else
     {

@@ -463,7 +463,7 @@ restore_dbg_stuff(struct dbg_stuff *dsp)
 // @param fnum A buffer number. 0 == current buffer, 1-or-more must be a valid buffer ID.
 // @param ffname The full path to where a buffer lives on-disk or would live on-disk.
 //
-static int is_other_file(int fnum, char *ffname)
+static int is_other_file(int fnum, char_u *ffname)
 {
   if (fnum != 0) {
     if (fnum == curbuf->b_fnum)
@@ -7283,7 +7283,7 @@ ex_edit(exarg_T *eap)
 	eap->cmdidx != CMD_badd
 	&& eap->cmdidx != CMD_balt
 	// All other commands must obey 'winfixbuf' / ! rules
-	&& (is_other_file(0, ffname) && !check_can_set_curbuf_forceit(eap->forceit))
+	&& (is_other_file(0, (char_u *)ffname) && !check_can_set_curbuf_forceit(eap->forceit))
     )
         return;
 

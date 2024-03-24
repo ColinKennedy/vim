@@ -2215,7 +2215,7 @@ restore_backup:
 	}
 #endif
 
-#ifdef UNIX
+// #ifdef UNIX
 	// When creating a new file, set its owner/group to that of the
 	// original file.  Get the new device and inode number.
 	if (backup != NULL && !backup_copy)
@@ -2241,7 +2241,7 @@ restore_backup:
 	else if (!buf->b_dev_valid)
 	    // Set the inode when creating a new file.
 	    buf_setino(buf);
-#endif
+// #endif
 
 #ifdef UNIX
 	if (made_writable)

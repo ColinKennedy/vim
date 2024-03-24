@@ -2298,7 +2298,7 @@ buflist_new(
 #endif
 
     buf->b_fname = buf->b_sfname;
-#ifdef UNIX
+// #ifdef UNIX
     if (st.st_dev == (dev_T)-1)
 	buf->b_dev_valid = FALSE;
     else
@@ -2307,7 +2307,7 @@ buflist_new(
 	buf->b_dev = st.st_dev;
 	buf->b_ino = st.st_ino;
     }
-#endif
+// #endif
     buf->b_u_synced = TRUE;
     buf->b_flags = BF_CHECK_RO | BF_NEVERLOADED;
     if (flags & BLN_DUMMY)
@@ -3553,7 +3553,7 @@ setfname(
 	buf->b_sfname = sfname;
     }
     buf->b_fname = buf->b_sfname;
-#ifdef UNIX
+// #ifdef UNIX
     if (st.st_dev == (dev_T)-1)
 	buf->b_dev_valid = FALSE;
     else
@@ -3562,7 +3562,7 @@ setfname(
 	buf->b_dev = st.st_dev;
 	buf->b_ino = st.st_ino;
     }
-#endif
+// #endif
 
     buf->b_shortname = FALSE;
 
@@ -3735,7 +3735,7 @@ otherfile_buf(
 	return TRUE;
     if (fnamecmp(ffname, buf->b_ffname) == 0)
 	return FALSE;
-#ifdef UNIX
+// #ifdef UNIX
     {
 	stat_T	    st;
 
@@ -3762,11 +3762,11 @@ otherfile_buf(
 		return FALSE;
 	}
     }
-#endif
+// #endif
     return TRUE;
 }
 
-#if defined(UNIX) || defined(PROTO)
+#if defined(PROTO)
 /*
  * Set inode and device number for a buffer.
  * Must always be called when b_fname is changed!.

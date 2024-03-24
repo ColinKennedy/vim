@@ -460,6 +460,34 @@ restore_dbg_stuff(struct dbg_stuff *dsp)
 }
 #endif
 
+// @param fnum A buffer number. 0 == current buffer, 1-or-more must be a valid buffer ID.
+// @param ffname The full path to where a buffer lives on-disk or would live on-disk.
+//
+static int is_other_file(int fnum, char *ffname)
+{
+  if (fnum != 0) {
+    if (fnum == curbuf->b_fnum)
+      return FALSE;
+
+    return TRUE;
+  }
+
+  if (ffname == NULL)
+    return TRUE;
+
+  if (*ffname == NUL)
+    return FALSE;
+
+  if (!curbuf->b_dev_valid
+      && curbuf->b_sfname != NULL
+      && *curbuf->b_sfname != NUL)
+    // This occurs with unsaved buffers. In which case `ffname`
+    // actually corresponds to curbuf->b_sfname
+    return fnamecmp(ffname, curbuf->b_sfname) != 0;
+
+  return otherfile(ffname);
+}
+
 /*
  * do_exmode(): Repeatedly get commands for the "Ex" mode, until the ":vi"
  * command is given.
@@ -7248,12 +7276,15 @@ ex_open(exarg_T *eap)
     static void
 ex_edit(exarg_T *eap)
 {
+    char *ffname = eap->cmdidx == CMD_enew ? NULL : eap->arg;
+
     // Exclude commands which keep the window's current buffer
     if (
-	    eap->cmdidx != CMD_badd
-	    && eap->cmdidx != CMD_balt
-	    // All other commands must obey 'winfixbuf' / ! rules
-	    && !check_can_set_curbuf_forceit(eap->forceit))
+	eap->cmdidx != CMD_badd
+	&& eap->cmdidx != CMD_balt
+	// All other commands must obey 'winfixbuf' / ! rules
+	&& (is_other_file(0, ffname) && !check_can_set_curbuf_forceit(eap->forceit))
+    )
         return;
 
     do_exedit(eap, NULL);

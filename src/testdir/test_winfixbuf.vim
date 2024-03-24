@@ -1125,6 +1125,65 @@ func Test_edit()
   call assert_equal(l:other, bufnr())
 endfunc
 
+" Fail to call `:e first` if called from a starting, in-memory buffer
+func Test_edit_first_buffer()
+  call s:reset_all_buffers()
+
+  set winfixbuf
+  let l:current = bufnr()
+
+  call assert_fails("edit first", "E1513:")
+  call assert_equal(l:current, bufnr())
+
+  edit! first
+  call assert_equal(l:current, bufnr())
+  edit! somewhere_else
+  call assert_notequal(l:current, bufnr())
+endfunc
+
+" Allow reloading a buffer using :e
+func Test_edit_no_arguments()
+  call s:reset_all_buffers()
+
+  let l:current = bufnr()
+  file some_buffer
+
+  call assert_equal(l:current, bufnr())
+  set winfixbuf
+  edit
+  call assert_equal(l:current, bufnr())
+endfunc
+
+" Allow :e selecting the current buffer
+func Test_edit_same_buffer_in_memory()
+  call s:reset_all_buffers()
+
+  let l:current = bufnr()
+  file same_buffer
+
+  call assert_equal(l:current, bufnr())
+  set winfixbuf
+  edit same_buffer
+  call assert_equal(l:current, bufnr())
+endfunc
+
+" Allow :e selecting the current buffer
+func Test_edit_same_buffer_on_disk()
+  call s:reset_all_buffers()
+
+  let l:file = tempname()
+  let l:current = bufnr()
+  execute "edit " . l:file
+  write!
+
+  call assert_equal(l:current, bufnr())
+  set winfixbuf
+  execute "edit " l:file
+  call assert_equal(l:current, bufnr())
+
+  call delete(l:file)
+endfunc
+
 " Fail :enew but :enew! is allowed
 func Test_enew()
   call s:reset_all_buffers()

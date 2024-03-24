@@ -2609,7 +2609,7 @@ buflist_findname_exp(char_u *fname)
     buf_T *
 buflist_findname(char_u *ffname)
 {
-#ifdef UNIX
+// #ifdef UNIX
     stat_T	st;
 
     if (mch_stat((char *)ffname, &st) < 0)
@@ -2627,15 +2627,15 @@ buflist_findname_stat(
     char_u	*ffname,
     stat_T	*stp)
 {
-#endif
+// #endif
     buf_T	*buf;
 
     // Start at the last buffer, expect to find a match sooner.
     FOR_ALL_BUFS_FROM_LAST(buf)
 	if ((buf->b_flags & BF_DUMMY) == 0 && !otherfile_buf(buf, ffname
-#ifdef UNIX
+// #ifdef UNIX
 		    , stp
-#endif
+// #endif
 		    ))
 	    return buf;
     return NULL;
@@ -3725,9 +3725,9 @@ otherfile(char_u *ffname)
 otherfile_buf(
     buf_T		*buf,
     char_u		*ffname
-#ifdef UNIX
+// #ifdef UNIX
     , stat_T		*stp
-#endif
+// #endif
     )
 {
     // no name is different

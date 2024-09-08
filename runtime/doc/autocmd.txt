@@ -415,6 +415,8 @@ Name			triggered by ~
 |TextChangedT|		after a change was made to the text in Terminal mode
 |TextYankPost|		after text has been yanked or deleted
 
+|VisualChanged|		when visual selection was changed
+
 |SafeState|		nothing pending, going to wait for the user to type a
 			character
 |SafeStateAgain|	repeated SafeState
@@ -1402,6 +1404,10 @@ VimResume			When the Vim instance is resumed after being
 VimSuspend			When the Vim instance is suspended.  Only when
 				CTRL-Z was typed inside Vim, or when the SIGTSTP
 				signal was sent to Vim, but not for SIGSTOP.
+							*VisualChanged*
+VisualChanged			When Visual mode starts, visual mode changes
+				to another visual mode, selection changes,
+				cursor moves while in visual mode.
 							*WinClosed*
 WinClosed			When closing a window, just before it is
 				removed from the window layout.  The pattern

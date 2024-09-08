@@ -1443,6 +1443,7 @@ enum auto_event
     EVENT_VIMLEAVE,		// before exiting Vim
     EVENT_VIMLEAVEPRE,		// before exiting Vim and writing .viminfo
     EVENT_VIMRESIZED,		// after Vim window was resized
+    EVENT_VISUALCHANGED,	// when visual selection was changed
     EVENT_WINENTER,		// after entering a window
     EVENT_WINLEAVE,		// before leaving a window
     EVENT_WINNEWPRE,		// before creating a new window

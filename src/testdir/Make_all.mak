@@ -331,6 +331,7 @@ NEW_TESTS = \
 	test_vimscript \
 	test_virtualedit \
 	test_visual \
+	test_visualchanged \
 	test_winbar \
 	test_winbuf_close \
 	test_window_cmd \
@@ -574,6 +575,7 @@ NEW_TESTS_RES = \
 	test_vimscript.res \
 	test_virtualedit.res \
 	test_visual.res \
+	test_visualchanged.res \
 	test_winbar.res \
 	test_winbuf_close.res \
 	test_window_cmd.res \

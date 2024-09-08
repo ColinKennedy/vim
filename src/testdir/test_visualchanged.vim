@@ -11,27 +11,35 @@ func s:assert_count(value)
   call assert_equal(value, g:_visual_count)
 endfunc
 
-func s:make_test_buffer()
+" Set the buffer up for further tests.
+func s:initialize_test_buffer()
   call append(0, ["Hello", "Hello", "Hello"])
 
   return bufnr()
 endfunc
 
+" Remove all buffers and reset all VisualChanged counts.
 func s:reset_buffers()
   %bwipeout!
   autocmd! VisualChanged
   let g:visual_changed = 0
 endfunc
 
+" Keep track of whenever VisualChanged is called.
 func s:watch_visualchanged()
   au VisualChanged * let g:_visual_count += 1
 endfunc
 
+" If the user changes modes, call VisualChanged only if the bounds change.
+"
+" For example `v` -> `C-v` changes visual mode but the actual bounding box of
+" the visual selection has not changed. So VisualChanged does not run.
+"
 func Test_change_visual_mode_runs_visualchanged()
   call s:reset_buffers()
   call s:watch_visualchanged()
 
-  call s:make_test_buffer()
+  call s:initialize_test_buffer()
 
   normal v
   call s:assert_count(1)
@@ -52,6 +60,7 @@ func Test_change_visual_mode_runs_visualchanged()
   call s:assert_count(4)
 endfunc
 
+" Selecting the previous visual selection will trigger VisualChanged.
 func Test_gv_runs_visualchanged()
   call s:reset_buffers()
   call s:watch_visualchanged()
@@ -65,6 +74,7 @@ func Test_gv_runs_visualchanged()
   call s:assert_count(4)
 endfunc
 
+" Trigger VisualChanged When the bounds of a visual selection changes.
 func Test_runs_when_visual_area_changes()
   call s:reset_buffers()
   call s:watch_visualchanged()
@@ -87,6 +97,7 @@ func Test_runs_when_visual_area_changes()
   call s:assert_count(12)
 endfunc
 
+" Trigger VisualChanged when changing from a non-visual mode (e.g. normal mode).
 func Test_runs_when_visual_mode_starts()
   call s:reset_buffers()
   call s:watch_visualchanged()
@@ -118,6 +129,7 @@ func Test_runs_when_visual_mode_starts()
   call s:assert_count(8)
 endfunc
 
+" Swapping corners of a visual selection's 'bounds does not trigger VisualChanged.
 func Test_visual_mode_o_does_not_trigger_visualchanged()
   call s:reset_buffers()
   call s:watch_visualchanged()
@@ -126,6 +138,7 @@ func Test_visual_mode_o_does_not_trigger_visualchanged()
   " TODO: Finish
 endfunc
 
+" Swapping corners of a visual selection's 'bounds does not trigger VisualChanged.
 func Test_vblock_mode_o_does_not_trigger_visualchanged()
   call s:reset_buffers()
   call s:watch_visualchanged()
@@ -133,18 +146,10 @@ func Test_vblock_mode_o_does_not_trigger_visualchanged()
   " TODO: Finish
 endfunc
 
-func Test_vblock_mode_hl_does_not_trigger_visualchanged()
-  call s:reset_buffers()
-  call s:watch_visualchanged()
-
-  " TODO: Finish
-endfunc
-
+" Don't trigger VisualChanged if the cursor moves left/right in Visual-block mode.
 func Test_vline_mode_o_does_not_trigger_visualchanged()
   call s:reset_buffers()
   call s:watch_visualchanged()
 
   " TODO: Finish
 endfunc
-
-call Test_runs_when_visual_mode_starts()

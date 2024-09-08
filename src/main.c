@@ -51,6 +51,9 @@ static void set_progpath(char_u *argv0);
 # endif
 #endif
 
+static int last_visualchanged_mode;
+static pos_T last_visualchanged_cursor;
+static pos_T last_visualchanged_anchor;
 
 /*
  * Different types of error messages.
@@ -1333,6 +1336,19 @@ main_loop(
 	    if (curwin->w_p_cole == 0)
 		conceal_update_lines = FALSE;
 #endif
+
+	    if (!finish_op && VIsual_active
+		&& (VIsual_mode != last_visualchanged_mode
+		    || !EQUAL_POS(curwin->w_cursor, last_visualchanged_cursor)
+		    || !EQUAL_POS(VIsual, last_visualchanged_anchor))) {
+	      apply_autocmds(EVENT_VISUALCHANGED, NULL, NULL, 0, curbuf);
+	      last_visualchanged_cursor = curwin->w_cursor;
+	      last_visualchanged_anchor = VIsual;
+	      last_visualchanged_mode = VIsual_mode;
+	    } else {
+	      // isn't visual mode; reset
+	      last_visualchanged_mode = -1;
+	    }
 
 	    // Trigger CursorMoved if the cursor moved.
 	    if (!finish_op && (has_cursormoved()
